@@ -1,0 +1,5 @@
+<Ui xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+    <Script file="Libs/LibStub/LibStub.lua" />
+    <Script file="Libs/AceDB-3.0/AceDB-3.0.xml" />
+    <Script file="Libs/AceConfig-3.0/LibConfig-3.0.xml" />
+</Ui>
