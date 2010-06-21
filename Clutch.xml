@@ -1,13 +1,13 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
     <Script file="Clutch.lua" />
-    <CheckButton name="Clutch" hidden="true">
+    <CheckButton name="Clutch" parent="VehicleMenuBarLeaveButton" inherits="InterfaceOptionsCheckButtonTemplate" frameStrata="OVERLAY">
         <Size>
             <AbsDimension x="32" y="32"/>
         </Size>
         <Anchors>
-            <Anchor point="CENTER">
+            <Anchor point="BOTTOM" relativePoint="TOP">
                 <Offset>
-                    <AbsDimension x="71" y="-20"/>
+                    <AbsDimension x="0" y="-10" />
                 </Offset>
             </Anchor>
         </Anchors>
