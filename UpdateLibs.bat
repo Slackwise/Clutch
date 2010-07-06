@@ -1,12 +1,15 @@
 @echo off
 
-SET Source="C:\Users\Slackwise\Source\Ace3"
-SET Dest="C:\Program Files (x86)\World of Warcraft\Interface\AddOns\Clutch\Libs"
+SET SRC="C:\Users\Slackwise\Source\Ace3"
+SET DEST="C:\Program Files (x86)\World of Warcraft\Interface\AddOns\Clutch\Libs"
 
-TortoiseProc /command:update /path:%Source%
+TortoiseProc /command:update /path:%SRC%
 
-xcopy %Source%\LibStub %Dest%\LibStub /Y
-xcopy %Source%\AceDB-3.0 %Dest%\AceDB-3.0 /Y
-xcopy %Source%\AceConfig-3.0 %Dest%\AceConfig-3.0 /Y
+XCOPY %SRC%\LibStub %DEST%\LibStub /Y
+XCOPY %SRC%\AceAddon-3.0 %DEST%\AceAddon-3.0 /Y
+XCOPY %SRC%\AceConfig-3.0 %DEST%\AceConfig-3.0 /Y  
+xcopy %SRC%\AceConsole-3.0 %DEST%\AceConsole-3.0 /Y
+XCOPY %SRC%\AceDB-3.0 %DEST%\AceDB-3.0 /Y
+XCOPY %SRC%\AceEvent-3.0 %DEST%\AceEvent-3.0 /Y
 
-pause
+PAUSE
