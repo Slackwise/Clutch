@@ -9,4 +9,4 @@
 
 embeds.xml
 Clutch.xml
-ClutchMessage.xml
+ClutchNotification.xml
