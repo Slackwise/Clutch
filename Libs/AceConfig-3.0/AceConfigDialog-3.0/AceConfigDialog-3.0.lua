@@ -1,10 +1,10 @@
 --- AceConfigDialog-3.0 generates AceGUI-3.0 based windows based on option tables.
 -- @class file
 -- @name AceConfigDialog-3.0
--- @release $Id: AceConfigDialog-3.0.lua 939 2010-06-19 07:26:17Z nevcairiel $
+-- @release $Id: AceConfigDialog-3.0.lua 902 2009-12-12 14:56:14Z nevcairiel $
 
 local LibStub = LibStub
-local MAJOR, MINOR = "AceConfigDialog-3.0", 48
+local MAJOR, MINOR = "AceConfigDialog-3.0", 43
 local AceConfigDialog, oldminor = LibStub:NewLibrary(MAJOR, MINOR)
 
 if not AceConfigDialog then return end
@@ -24,7 +24,7 @@ local tconcat, tinsert, tsort, tremove = table.concat, table.insert, table.sort,
 local strmatch, format = string.match, string.format
 local assert, loadstring, error = assert, loadstring, error
 local pairs, next, select, type, unpack = pairs, next, select, type, unpack
-local rawset, tostring, tonumber = rawset, tostring, tonumber
+local rawset, tostring = rawset, tostring
 local math_min, math_max, math_floor = math.min, math.max, math.floor
 
 -- Global vars/functions that we don't upvalue since they might get hooked, or upgraded
@@ -835,15 +835,11 @@ end
 
 local function ActivateSlider(widget, event, value)
 	local option = widget:GetUserData('option')
-	local min, max, step = option.min or (not option.softMin and 0 or nil), option.max or (not option.softMax and 100 or nil), option.step
-	if min then
-		if step then
-			value = math_floor((value - min) / step + 0.5) * step + min
-		end
-		value = math_max(value, min)
-	end
-	if max then
-		value = math_min(value, max)
+	local min, max, step = option.min or 0, option.max or 100, option.step
+	if step then
+		value = math_floor((value - min) / step + 0.5) * step + min
+	else
+		value = math_max(math_min(value,max),min)
 	end
 	ActivateControl(widget,event,value)
 end
@@ -975,7 +971,6 @@ local function BuildSubGroups(group, tree, options, path, appName)
 				entry.value = k
 				entry.text = GetOptionsMemberValue("name", v, options, path, appName)
 				entry.icon = GetOptionsMemberValue("icon", v, options, path, appName)
-				entry.iconCoords = GetOptionsMemberValue("iconCoords", v, options, path, appName)
 				entry.disabled = CheckOptionDisabled(v, options, path, appName)
 				if not tree.children then tree.children = new() end
 				tinsert(tree.children,entry)
@@ -1122,8 +1117,12 @@ local function FeedOptions(appName, options,container,rootframe,path,group,inlin
 						control = gui:Create(v.multiline and "MultiLineEditBox" or "EditBox")
 					end
 					
-					if v.multiline and control.SetNumLines then
-						control:SetNumLines(tonumber(v.multiline) or 4)
+					if v.multiline then
+						local lines = 4
+						if type(v.multiline) == "number" then
+							lines = v.multiline
+						end
+						control:SetHeight(60 + (14*lines))
 					end
 					control:SetLabel(name)
 					control:SetCallback("OnEnterPressed",ActivateControl)
@@ -1159,7 +1158,7 @@ local function FeedOptions(appName, options,container,rootframe,path,group,inlin
 				elseif v.type == "range" then
 					control = gui:Create("Slider")
 					control:SetLabel(name)
-					control:SetSliderValues(v.softMin or v.min or 0, v.softMax or v.max or 100, v.bigStep or v.step or 0)
+					control:SetSliderValues(v.min or 0,v.max or 100, v.bigStep or v.step or 0)
 					control:SetIsPercent(v.isPercent)
 					local value = GetOptionsMemberValue("get",v, options, path, appName)
 					if type(value) ~= "number" then
@@ -1489,13 +1488,17 @@ function AceConfigDialog:FeedGroup(appName,options,container,rootframe,path, isR
 	local grouptype, parenttype = options.childGroups, "none"
 
 
+	--temp path table to pass to callbacks as we traverse the tree
+	local temppath = new()
 	for i = 1, #path do
 		local v = path[i]
+		temppath[i] = v
 		group = GetSubOption(group, v)
 		inline = inline or pickfirstset(v.dialogInline,v.guiInline,v.inline, false)
 		parenttype = grouptype
 		grouptype = group.childGroups
 	end
+	del(temppath)
 
 	if not parenttype then
 		parenttype = "tree"
