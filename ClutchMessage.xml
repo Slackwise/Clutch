@@ -26,7 +26,7 @@
             <OnLoad>
                 self:SetBackdropBorderColor(0.5, 0.5, 0.5, 0.5);
                 self:SetBackdropColor(TOOLTIP_DEFAULT_BACKGROUND_COLOR.r, TOOLTIP_DEFAULT_BACKGROUND_COLOR.g, TOOLTIP_DEFAULT_BACKGROUND_COLOR.b, 1);
-                --self:Show() --Testing only!
+                self:Show() --Testing only!
             </OnLoad>					
         </Scripts>
         <Layers>
@@ -35,7 +35,7 @@
                     <Color r="1" g="1" b="1" a="1"/>
                     <FontHeight val="12"/>
                     <Anchors>
-                        <Anchor point="CENTER" relativeTo="$parent" x="20" y="-20" />
+                        <Anchor point="CENTER" relativeTo="$parent" x="0" y="0" />
                     </Anchors>
                 </FontString>
             </Layer>
