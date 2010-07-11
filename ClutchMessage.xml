@@ -25,10 +25,21 @@
         <Scripts>
             <OnLoad>
                 self:SetBackdropBorderColor(0.5, 0.5, 0.5, 0.5);
-                self:SetBackdropColor(TOOLTIP_DEFAULT_BACKGROUND_COLOR.r, TOOLTIP_DEFAULT_BACKGROUND_COLOR.g, TOOLTIP_DEFAULT_BACKGROUND_COLOR.b, 0.5);
+                self:SetBackdropColor(TOOLTIP_DEFAULT_BACKGROUND_COLOR.r, TOOLTIP_DEFAULT_BACKGROUND_COLOR.g, TOOLTIP_DEFAULT_BACKGROUND_COLOR.b, 1);
+                --self:Show() --Testing only!
             </OnLoad>					
         </Scripts>
-
+        <Layers>
+            <Layer level="OVERLAY">
+                <FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="ClutchMessage" justifyH="LEFT" justifyV="TOP">
+                    <Color r="1" g="1" b="1" a="1"/>
+                    <FontHeight val="12"/>
+                    <Anchors>
+                        <Anchor point="CENTER" relativeTo="$parent" x="20" y="-20" />
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
 	</Frame>
 </Ui>
 
