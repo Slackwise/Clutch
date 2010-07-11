@@ -113,5 +113,5 @@ end
 
 function addon:ClearBindings()
     ClearOverrideBindings(self.frame)
-    ClutchButton:SetChecked(true)
+    ClutchButton:SetChecked(false)
 end
