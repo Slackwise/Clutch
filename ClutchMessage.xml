@@ -4,6 +4,12 @@
         <Size>
             <AbsDimension x="200" y="100"/>
         </Size>
+        <TitleRegion>
+            <Size x="200" y="15"/>
+            <Anchors>
+                <Anchor point="TOP"/>
+            </Anchors>
+        </TitleRegion>
         <Anchors>
             <Anchor point="BOTTOM" relativeTo="MainMenuBar" relativePoint="TOP">
                 <Offset>
@@ -26,14 +32,20 @@
             <OnLoad>
                 self:SetBackdropBorderColor(0.5, 0.5, 0.5, 0.5);
                 self:SetBackdropColor(TOOLTIP_DEFAULT_BACKGROUND_COLOR.r, TOOLTIP_DEFAULT_BACKGROUND_COLOR.g, TOOLTIP_DEFAULT_BACKGROUND_COLOR.b, 1);
-                self:Show() --Testing only!
-            </OnLoad>					
+                --self:Show() --Testing only!
+            </OnLoad>
         </Scripts>
         <Layers>
             <Layer level="OVERLAY">
-                <FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="ClutchMessage" justifyH="LEFT" justifyV="TOP">
-                    <Color r="1" g="1" b="1" a="1"/>
+                <FontString name="$parentTitle" font="Fonts\FRIZQT__.TTF" text="Clutch" justifyH="LEFT" justifyV="TOP">
+                    <Color r="1.0" g="0.82" b="0"/>
                     <FontHeight val="12"/>
+                    <Anchors>
+                        <Anchor point="TOP" relativeTo="$parent" x="0" y="-5" />
+                    </Anchors>
+                </FontString>
+                <FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="" justifyH="LEFT" justifyV="TOP">
+                    <FontHeight val="10"/>
                     <Anchors>
                         <Anchor point="CENTER" relativeTo="$parent" x="0" y="0" />
                     </Anchors>

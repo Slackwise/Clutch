@@ -17,21 +17,38 @@ local db_defaults = {
         bindings = { "1", "2", "3", "4", "5", "6" }
     }
 }
+addon.frame = CreateFrame("Frame") --For override bindings.
+
+
+--SHORTHAND/UTILITY FUNCTIONS
 local db
-local frame = CreateFrame("Frame") --For override bindings.
+local function IsKeybound()
+    return ClutchButton:GetChecked()
+end
+local function InVehicle()
+    return UnitHasVehicleUI("player")
+end
+local function ShowMessage(text)
+    ClutchMessageText:SetText(text)
+    ClutchMessage:Show()
+end
+local function HideMessage()
+    ClutchMessage:Hide()
+end
 
 
 --ACE ADDON HANDLERS
 function addon:OnInitialize()
-    print("==========ADDON_LOADED==========")
-    addon.db = LibStub("AceDB-3.0"):New("ClutchDB", db_defaults, true)
+    self.db = LibStub("AceDB-3.0"):New("ClutchDB", db_defaults, true)
     db = addon.db.profile
 end
 
 function addon:OnEnable()
-    addon:RegisterEvent("UNIT_ENTERED_VEHICLE")
-    addon:RegisterEvent("UNIT_EXITED_VEHICLE")
-    addon:RegisterChatCommand("clutch", "SlashCmdHandler")
+    self:RegisterChatCommand("clutch", "SlashCmdHandler")
+    self:RegisterEvent("UNIT_ENTERED_VEHICLE")
+    self:RegisterEvent("UNIT_EXITED_VEHICLE")
+    self:RegisterEvent("PLAYER_REGEN_ENABLED")
+    self:RegisterEvent("PLAYER_REGEN_DISABLED")
 end
 
 function addon:OnDisable()
@@ -40,10 +57,10 @@ end
 
 --MAIN FUNCTIONS
 function addon:SlashCmdHandler(input)
-    local arg = addon:GetArgs(input)
+    local arg = self:GetArgs(input)
     if arg == "clear" then
         print("Clutch bindings cleared!")
-        ClearOverrideBindings(frame)
+        self:ClearBindings()
     elseif arg == "joust" then
         print("Setting to Yumi's defaults!")
         db.bindings = { "E", "4", "F", "R", "SHIFT-R", "T" }
@@ -52,7 +69,7 @@ function addon:SlashCmdHandler(input)
         db.bindings = { "1", "2", "3", "4", "5", "6" }
     elseif arg == "reset" then
         print("Unsetting 'ClutchDB' Bindings variable!")
-        addon:ResetDB()
+        self:ResetDB()
     elseif arg == "" then
         InterfaceOptionsFrame_OpenToCategory(ClutchOptions)
     else
@@ -60,26 +77,41 @@ function addon:SlashCmdHandler(input)
     end
 end
 
-function addon:UNIT_ENTERED_VEHICLE(event, arg1, arg2)
-    if arg1 == "player" then
-        print("==========UNIT_ENTERED_VEHICLE==========")
-        if UnitHasVehicleUI("player") then
-            print("==========UnitHasVehicleUI TRUE!==========")
-            for i = 1, VEHICLE_MAX_ACTIONBUTTONS do
-                if HasAction(i) then
-                    SetOverrideBinding(frame, true, db.bindings[i],
-                    "ACTIONBUTTON" .. i)
-                end
-            end
-        end 
+function addon:UNIT_ENTERED_VEHICLE(event, unit, arg2)
+    if InVehicle() and not InCombatLockdown() and not IsKeybound() then
+        self:SetBindings()
+    end 
+end
+
+function addon:UNIT_EXITED_VEHICLE(event, unit, arg2)
+    if InCombatLockdown() and IsKeybound() then
+        ShowMessage("Waiting to leave combat to unbind keys...")
+    elseif IsKeybound() then
+        self:ClearBindings()
     end
 end
 
-function addon:UNIT_EXITED_VEHICLE(event, arg1, arg2)
-    if arg1 == "player" then
-        print("==========UNIT_EXITED_VEHICLE==========")
-        --Does not work while InCombatLockdown().
-        --Must find workaround... :(
-        ClearOverrideBindings(frame)
+function addon:PLAYER_REGEN_ENABLED()
+end
+
+function addon:PLAYER_REGEN_DISABLED()
+    if IsKeybound() and not InVehicle() then
+        self:ClearBindings()
+        HideMessage()
     end
+end
+
+function addon:SetBindings()
+    for i = 1, VEHICLE_MAX_ACTIONBUTTONS do
+        if HasAction(i) then
+            SetOverrideBinding(self.frame, true, db.bindings[i],
+            "ACTIONBUTTON" .. i)
+        end
+    end
+    ClutchButton:SetChecked(true)
+end
+
+function addon:ClearBindings()
+    ClearOverrideBindings(self.frame)
+    ClutchButton:SetChecked(true)
 end
