@@ -44,7 +44,7 @@
                         <Anchor point="TOP" relativeTo="$parent" x="0" y="-5" />
                     </Anchors>
                 </FontString>
-                <FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="" justifyH="LEFT" justifyV="TOP">
+                <FontString name="$parentText" font="Fonts\FRIZQT__.TTF" text="" justifyH="CENTER" justifyV="CENTER">
                     <FontHeight val="10"/>
                     <Anchors>
                         <Anchor point="CENTER" relativeTo="$parent" x="0" y="0" />

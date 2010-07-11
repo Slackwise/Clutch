@@ -30,6 +30,7 @@ local function InVehicle()
 end
 local function ShowMessage(text)
     ClutchMessageText:SetText(text)
+    ClutchMessageText:SetWidth("190")
     ClutchMessage:Show()
 end
 local function HideMessage()
