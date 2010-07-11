@@ -32,8 +32,10 @@
             <OnLoad>
                 self:SetBackdropBorderColor(0.5, 0.5, 0.5, 0.5);
                 self:SetBackdropColor(TOOLTIP_DEFAULT_BACKGROUND_COLOR.r, TOOLTIP_DEFAULT_BACKGROUND_COLOR.g, TOOLTIP_DEFAULT_BACKGROUND_COLOR.b, 1);
-                --self:Show() --Testing only!
             </OnLoad>
+            <OnShow>
+                ClutchMessageText:SetWidth("190")
+            </OnShow>
         </Scripts>
         <Layers>
             <Layer level="OVERLAY">
