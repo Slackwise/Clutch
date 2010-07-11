@@ -7,7 +7,7 @@
         <Anchors>
             <Anchor point="BOTTOMLEFT" relativeTo="VehicleMenuBar" relativePoint="TOP">
                 <Offset>
-                    <AbsDimension x="-162" y="32"/>
+                    <AbsDimension x="-162" y="31"/>
                 </Offset>
             </Anchor>
         </Anchors>
@@ -43,14 +43,14 @@
             </Layer>
         </Layers>
         <Frames>
-            <CheckButton name="ClutchButton" inherits="InterfaceOptionsCheckButtonTemplate" checked="false">
+            <CheckButton name="ClutchButton" inherits="InterfaceOptionsSmallCheckButtonTemplate" checked="false">
                 <Size>
-                    <AbsDimension x="20" y="20"/>
+                    <AbsDimension x="26" y="26"/>
                 </Size>
                 <Anchors>
                     <Anchor point="LEFT" relativeTo="$parent" relativePoint="LEFT">
                         <Offset>
-                            <AbsDimension x="4" y="0"/>
+                            <AbsDimension x="2" y="-1"/>
                         </Offset>
                     </Anchor>
                 </Anchors>
