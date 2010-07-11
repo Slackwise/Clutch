@@ -92,13 +92,13 @@ function addon:UNIT_EXITED_VEHICLE(event, unit, arg2)
 end
 
 function addon:PLAYER_REGEN_ENABLED()
-end
-
-function addon:PLAYER_REGEN_DISABLED()
     if IsKeybound() and not InVehicle() then
         self:ClearBindings()
         HideMessage()
     end
+end
+
+function addon:PLAYER_REGEN_DISABLED()
 end
 
 function addon:SetBindings()
