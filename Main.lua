@@ -14,7 +14,10 @@ local addon = LibStub("AceAddon-3.0"):NewAddon(
 _G.Clutch = addon
 local db_defaults = {
     profile = {
-        bindings = { "1", "2", "3", "4", "5", "6" }
+        bindings = { 
+            default = {"1", "2", "3", "4", "5", "6" },
+            custom = {}
+        }
     }
 }
 addon.frame = CreateFrame("Frame") --For override bindings.
@@ -63,10 +66,10 @@ function addon:SlashCmdHandler(input)
         self:ClearBindings()
     elseif arg == "joust" then
         print("Setting to Yumi's defaults!")
-        db.bindings = { "E", "4", "F", "R", "SHIFT-R", "T" }
+        db.bindings.default = { "E", "4", "F", "R", "SHIFT-R", "T" }
     elseif arg == "default" then
         print("Setting to default 1-6 bindings!")
-        db.bindings = { "1", "2", "3", "4", "5", "6" }
+        db.bindings.default = { "1", "2", "3", "4", "5", "6" }
     elseif arg == "reset" then
         print("Unsetting 'ClutchDB' Bindings variable!")
         self:ResetDB()
@@ -104,9 +107,12 @@ function addon:PLAYER_REGEN_DISABLED()
 end
 
 function addon:SetBindings()
+    local vehicle = GetUnitName("vehicle")
+    local bindings = db.bindings.custom[vehicle] ~= nil and
+        db.bindings.custom[vehicle] or db.bindings.default
     for i = 1, VEHICLE_MAX_ACTIONBUTTONS do
         if HasAction(i) then
-            SetOverrideBinding(self.frame, true, db.bindings[i],
+            SetOverrideBinding(self.frame, true, bindings[i],
             "ACTIONBUTTON" .. i)
         end
     end
