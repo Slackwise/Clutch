@@ -13,6 +13,7 @@ local addon = LibStub("AceAddon-3.0"):NewAddon(
     "Clutch", "AceConsole-3.0", "AceEvent-3.0")
 addon.frame = CreateFrame("Frame") --For override bindings.
 addon.config = LibStub("AceConfig-3.0") 
+addon.config.dialog = LibStub("AceConfigDialog-3.0")
 _G.Clutch = addon
 local db_defaults = {
     profile = {
@@ -45,6 +46,9 @@ function addon:OnInitialize()
     self.db = LibStub("AceDB-3.0"):New("ClutchDB", db_defaults, true)
     db = addon.db.profile
     addon.config:RegisterOptionsTable("Clutch", addon.options, "clutch")
+    addon.config.dialog:AddToBlizOptions("Clutch", nil,
+        nil, "general")
+    
 end
 
 function addon:OnEnable()
