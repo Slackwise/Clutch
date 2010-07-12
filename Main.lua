@@ -12,6 +12,7 @@ FrameXML/Bindings.xml
 local addon = LibStub("AceAddon-3.0"):NewAddon(
     "Clutch", "AceConsole-3.0", "AceEvent-3.0")
 _G.Clutch = addon
+addon.frame = CreateFrame("Frame") --For override bindings.
 local db_defaults = {
     profile = {
         bindings = { 
@@ -20,7 +21,6 @@ local db_defaults = {
         }
     }
 }
-addon.frame = CreateFrame("Frame") --For override bindings.
 
 
 --SHORTHAND/UTILITY FUNCTIONS
