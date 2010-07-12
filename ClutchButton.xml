@@ -1,6 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
     <Script file="ClutchButton.lua"/>
-    <Frame name="ClutchButtonBorder" parent="VehicleMenuBar">
+    <Frame name="ClutchButtons" parent="VehicleMenuBar">
         <Size>
             <AbsDimension x="120" y="40"/>
         </Size>
@@ -43,18 +43,63 @@
             </Layer>
         </Layers>
         <Frames>
-            <CheckButton name="ClutchButton" inherits="InterfaceOptionsSmallCheckButtonTemplate" checked="false">
+            <CheckButton name="ClutchCheckButton" inherits="InterfaceOptionsSmallCheckButtonTemplate" checked="false">
                 <Size>
                     <AbsDimension x="26" y="26"/>
                 </Size>
                 <Anchors>
-                    <Anchor point="LEFT" relativeTo="$parent" relativePoint="LEFT">
+                    <Anchor point="LEFT" relativePoint="LEFT">
                         <Offset>
                             <AbsDimension x="2" y="-1"/>
                         </Offset>
                     </Anchor>
                 </Anchors>
+                <Scripts>
+                    <OnClick function="ClutchCheckButton_OnClick" />
+                </Scripts>
             </CheckButton>
+            <Button name="ClutchButton">
+                <Size>
+                    <AbsDimension x="90" y="26"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="ClutchCheckButton" relativePoint="RIGHT">
+                        <Offset>
+                            <AbsDimension x="2" y="0"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <ButtonText name="$parentText" text="Default">
+                    <Size>
+                        <AbsDimension x="0" y="8"/>
+                    </Size>
+                    <Anchors>
+                        <Anchor point="LEFT" relativeTo="ClutchCheckButton" relativePoint="RIGHT">
+                            <Offset>
+                                <AbsDimension x="-2" y="0"/>
+                            </Offset>
+                        </Anchor>
+                    </Anchors>
+                </ButtonText>
+                <NormalFont style="GameFontNormalSmall"/>
+                <HighlightTexture file="Interface\PaperDollInfoFrame\UI-Character-Tab-Highlight" alphaMode="ADD">
+                    <Anchors>
+                        <Anchor point="LEFT" relativeTo="ClutchCheckButton" relativePoint="RIGHT">
+                            <Offset>
+                                <AbsDimension x="0" y="-7"/>
+                            </Offset>
+                        </Anchor>
+                        <Anchor point="RIGHT" relativeTo="$parentRight">
+                            <Offset>
+                                <AbsDimension x="0" y="-7"/>
+                            </Offset>
+                        </Anchor>
+                    </Anchors>
+                </HighlightTexture>
+                <Scripts>
+                    <OnClick function="ClutchButton_OnClick"/>
+                </Scripts>
+            </Button>
         </Frames>
     </Frame>
 </Ui>

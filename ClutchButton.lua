@@ -1,5 +1,6 @@
-function ClutchButton_OnLoad(self)
+function ClutchCheckButton_OnClick()
+    --if self:GetChecked() then
 end
 
-function ClutchButton_OnEvent(self, event, arg1, arg2)
+function ClutchButton_OnClick()
 end

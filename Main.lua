@@ -23,7 +23,7 @@ addon.frame = CreateFrame("Frame") --For override bindings.
 --SHORTHAND/UTILITY FUNCTIONS
 local db
 local function IsKeybound()
-    return ClutchButton:GetChecked()
+    return ClutchCheckButton:GetChecked()
 end
 local function InVehicle()
     return UnitHasVehicleUI("player")
@@ -108,10 +108,10 @@ function addon:SetBindings()
             "ACTIONBUTTON" .. i)
         end
     end
-    ClutchButton:SetChecked(true)
+    ClutchCheckButton:SetChecked(true)
 end
 
 function addon:ClearBindings()
     ClearOverrideBindings(self.frame)
-    ClutchButton:SetChecked(false)
+    ClutchCheckButton:SetChecked(false)
 end
