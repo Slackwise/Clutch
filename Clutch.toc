@@ -9,5 +9,6 @@
 
 embeds.xml
 Main.lua
+Options.lua
 ClutchButton.xml
 ClutchMessage.xml

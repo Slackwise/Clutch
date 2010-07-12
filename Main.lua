@@ -11,8 +11,9 @@ FrameXML/Bindings.xml
 --INITIALIZE
 local addon = LibStub("AceAddon-3.0"):NewAddon(
     "Clutch", "AceConsole-3.0", "AceEvent-3.0")
-_G.Clutch = addon
 addon.frame = CreateFrame("Frame") --For override bindings.
+addon.config = LibStub("AceConfig-3.0") 
+_G.Clutch = addon
 local db_defaults = {
     profile = {
         bindings = { 
@@ -21,7 +22,6 @@ local db_defaults = {
         }
     }
 }
-
 
 --SHORTHAND/UTILITY FUNCTIONS
 local db
@@ -44,10 +44,11 @@ end
 function addon:OnInitialize()
     self.db = LibStub("AceDB-3.0"):New("ClutchDB", db_defaults, true)
     db = addon.db.profile
+    addon.config:RegisterOptionsTable("Clutch", addon.options, "clutch")
 end
 
 function addon:OnEnable()
-    self:RegisterChatCommand("clutch", "SlashCmdHandler")
+    --self:RegisterChatCommand("clutch", "SlashCmdHandler")
     self:RegisterEvent("UNIT_ENTERED_VEHICLE")
     self:RegisterEvent("UNIT_EXITED_VEHICLE")
     self:RegisterEvent("PLAYER_REGEN_ENABLED")
