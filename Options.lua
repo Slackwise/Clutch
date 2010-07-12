@@ -3,20 +3,15 @@ _G.Clutch.options = {
     args = {
         general = {
             type = "group",
-            name = "General",
-            desc = "General Settings",
+            name = "General Settings",
+            desc = "General settings for the entire addon.",
             args = {
                 enable = {
                     name = "Enabled",
                     desc = "Enable/disable this addon",
                     type = "toggle",
-                    func = function()
-                        if Clutch:IsEnabled() then
-                            Clutch:Disable()
-                        else
-                            Clutch:Enable()
-                        end
-                    end,
+                    get = function() return Clutch:IsEnabled() end,
+                    set = function() if Clutch:IsEnabled() then Clutch:Disable() else Clutch:Enable() end end,
                 }
             }
         }
