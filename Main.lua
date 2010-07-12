@@ -11,7 +11,7 @@ FrameXML/Bindings.xml
 --INITIALIZE
 local addon = LibStub("AceAddon-3.0"):NewAddon(
     "Clutch", "AceConsole-3.0", "AceEvent-3.0")
-_G["Clutch"] = addon
+_G.Clutch = addon
 local db_defaults = {
     profile = {
         bindings = { "1", "2", "3", "4", "5", "6" }
@@ -92,6 +92,7 @@ function addon:UNIT_EXITED_VEHICLE(event, unit, arg2)
 end
 
 function addon:PLAYER_REGEN_ENABLED()
+    ClutchCheckButton:Enable()
     if IsKeybound() and not InVehicle() then
         self:ClearBindings()
         HideMessage()
@@ -99,6 +100,7 @@ function addon:PLAYER_REGEN_ENABLED()
 end
 
 function addon:PLAYER_REGEN_DISABLED()
+    ClutchCheckButton:Disable()
 end
 
 function addon:SetBindings()
