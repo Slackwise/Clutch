@@ -44,9 +44,9 @@ end
 --ACE ADDON HANDLERS
 function addon:OnInitialize()
     self.db = LibStub("AceDB-3.0"):New("ClutchDB", db_defaults, true)
-    db = addon.db.profile
-    addon.config:RegisterOptionsTable("Clutch", addon.options, "clutch")
-    addon.config.dialog:AddToBlizOptions("Clutch", nil,
+    db = self.db.profile
+    self.config:RegisterOptionsTable("Clutch", self.options, "clutch")
+    self.config.dialog:AddToBlizOptions("Clutch", nil,
         nil, "general")
     
 end
